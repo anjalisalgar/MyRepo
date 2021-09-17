@@ -1,0 +1,20 @@
+dag:
+  dag_args:
+    dag_name: fdw_dbt_local_run
+    scheduler_interval: '45 */2 * * *'
+    description: "schema_test"
+    image: xx.xx.com                    #TO-DO: git sha id -- latest
+  default_args:
+    owner: Enterprise Data
+    retries: 2
+    page_on_failure: {{ env.page_on_failure }}
+    pager_address: pagerduty-xxxxxx-Datadog #TO-DO: datadog, pagerduty
+    email_on_failure: {{ env.email_on_failure }}
+    email:
+      - anjali.salgar@jadeglobal.com
+  tasks:
+   
+    - task_name: raw_data_curation
+      command: '/bin/bash -c "PYTHONPATH=. python main.py"'
+   
+ 
